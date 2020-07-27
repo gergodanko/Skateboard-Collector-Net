@@ -1,0 +1,31 @@
+﻿@model List<SkateboardCollector.Domain.LikeList>
+    <div id="skateboards" class="text-center">
+        <h1>Hall <span class="text-primary">of </span>Fame</h1>
+        <p>Every complete board created on this site.</p>
+        <table id="boardTable" class="table table-bordered" style="white-space:pre">
+            <tr>
+                <th>Owner's Nickname</th>
+                <th>Deck</th>
+                <th>Truck</th>
+                <th>Wheels</th>
+            </tr>
+            @foreach (var like in Model)
+            {
+                <tr>
+                    <td style="vertical-align: middle;">@like.LikeNickname</td>
+                    <td style="vertical-align: middle;"><img src="https://placehold.it/100x100?text=Placeholder" /><br />@like.LikeSkateboard.SbDeck.ToString()</td>
+                    <td style="vertical-align: middle;"><img src="https://placehold.it/100x100?text=Placeholder" /><br />@like.LikeSkateboard.SbTrucks.ToString()</td>
+                    <td style="vertical-align: middle;"><img src="https://placehold.it/100x100?text=Placeholder" /><br />@like.LikeSkateboard.SbWheels.ToString()</td>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <td style="vertical-align: middle;"><button class="btn btn-block btn-primary" onclick="location.href='@Url.Action("GiveALike", "Skateboards", new { skateboardId = like.LikeSkateboard.SkateboardId })'">Like</button>@like.LikeUsers.Count</td>
+                    }
+                    else
+                    {
+                        <td style="vertical-align: middle;"><button class="btn btn-block btn-primary" onclick="location.href='@Url.Action("Login", "Account")'">Like</button>@like.LikeUsers.Count</td>
+                    }
+                </tr>
+            }
+        </table>
+
+    </div>

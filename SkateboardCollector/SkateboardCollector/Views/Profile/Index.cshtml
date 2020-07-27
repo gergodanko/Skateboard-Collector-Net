@@ -1,0 +1,43 @@
+﻿@model Tuple<SkateboardCollector.Domain.User,List<SkateboardCollector.Domain.Skateboard>>
+
+@{
+    ViewData["Title"] = "Profile";
+}
+
+    <div>
+        <div class="text-left">
+            <h1 class="display-4">Profile</h1>
+            <h3>Username: </h3>
+            <p>@Model.Item1.UserNickname</p>
+            <h3>Email address:</h3>
+            <p>@Model.Item1.UserEmail</p>
+        </div>
+        <p></p>
+        <h2 style="text-align:center">Your skateboards</h2>
+        <div id="skateboards" class="text-center">
+            <table id="boardTable" class="table table-bordered" border_spacing="5px" style="white-space:pre">
+                <tr>
+                    <th>Deck</th>
+                    <th>Truck</th>
+                    <th>Wheels</th>
+                </tr>
+                @foreach (var board in Model.Item2)
+                {
+                    <tr>
+                        <td>@board.SbDeck.ToString()</td>
+                        <td>@board.SbTrucks.ToString()</td>
+                        <td>@board.SbWheels.ToString()</td>
+                        <td><input type="button" class="btn btn-primary" value="Delete" onclick="location.href='@Url.Action("RemoveSkateboardSlot", "Profile",new { skateboardId = board.SkateboardId})'" /></td>
+                    </tr>
+                }
+            </table>
+            <b>Remember: You can't have more than 3 skateboard slots!</b>
+        </div>
+
+        <input type="button" class="btn btn-primary" value="Add" onclick="location.href='@Url.Action("AddSkateboardSlot", "Profile")'" />
+        
+
+
+
+    </div>
+
